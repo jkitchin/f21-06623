@@ -21,7 +21,6 @@ from IPython.core.getipython import get_ipython
 url = 'https://docs.google.com/spreadsheets/d/1qSaBe73Pd8L3jJyOL68klp6yRArW7Nce/export?format=xlsx&gid=1923176268'
 df = pd.read_excel(url)
 
-print(df)
 
 
 # Dictionary of lecture dates and names; Date is not currently used anywhere.
@@ -29,10 +28,10 @@ print(df)
 # In[3]:
 
 
-lectures = {'08/31/2020':'00_intro',
-           '09/02/2020': '01_jupyter',
-           '09/09/2020': '02_integration_1',
-           '09/14/2020': '03_fode_1',
+lectures = {'08/31/2020': '00_intro',
+            '09/02/2020': '01_jupyter',
+            '09/09/2020': '02_integration_1',
+            '09/14/2020': '03_fode_1',
             '09/16/2020': '04_fode_2',
             '09/21/2020': '05_nth_odes',
             '09/23/2020': '07_nla_1',
