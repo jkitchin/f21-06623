@@ -6,7 +6,7 @@
 # In[1]:
 
 
-from MCQs import *
+from .MCQs import *
 
 
 # # Coding
