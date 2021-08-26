@@ -1,1 +1,1 @@
-from .MCQs import lecName
+from .MCQs import lecName, MCQ
