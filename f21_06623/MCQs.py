@@ -20,10 +20,10 @@ from IPython.core.getipython import get_ipython
 import pkg_resources
 import os
 xlsx = pkg_resources.resource_filename(__name__, 'InclassMCQs.xlsx')
-print(xlsx, os.path.exists(xlsx))
+df = pd.read_excel(xlsx)
 
-url = 'https://docs.google.com/spreadsheets/d/1qSaBe73Pd8L3jJyOL68klp6yRArW7Nce/export?format=xlsx&gid=1923176268'
-df = pd.read_excel(url)
+#url = 'https://docs.google.com/spreadsheets/d/1qSaBe73Pd8L3jJyOL68klp6yRArW7Nce/export?format=xlsx&gid=1923176268'
+#df = pd.read_excel(url)
 
 
 
