@@ -6,10 +6,7 @@
 # In[1]:
 
 
-from urllib.request import urlopen
-url = 'https://drive.google.com/uc?id=1vZZBZ9UOBhjMSAw_viB6m4x5R6I52zYa'
-py = urlopen(url).read().decode('utf-8')
-exec(py)
+from MCQs import *
 
 
 # # Coding
@@ -33,10 +30,10 @@ import matplotlib.pyplot as plt
 def strip_magic(line, cell):
     lines = cell.split('\n')
     stripped_lines = [line for line in lines if not line.strip().startswith('%')]
-    
+
     if(len(lines)>len(stripped_lines)):
         print('Warning: The % magic does not work in this cell.')
-    
+
     return ('\n'.join(stripped_lines))
 
 
@@ -44,7 +41,7 @@ def strip_magic(line, cell):
 
 
 def create_new_cell(contents):
-    
+
     shell = get_ipython()
     shell.set_next_input(contents, replace=False)
 
@@ -65,15 +62,15 @@ def within_array(x, y):
 
 @register_cell_magic
 def L00Q1(line, cell):
-    
+
     correct = 'Hello World'
-    
+
     globals = dict()
     exec(cell, globals)
-    
+
     # Now we can check if something was done
     grt = globals.get('greet', None)
-    
+
     if grt is None:
         print('You did not define a "greet" variable.')
     if (grt==correct):
@@ -88,17 +85,17 @@ def L00Q1(line, cell):
 
 
 def Code1():
-    
-    display(Markdown("""Using the code template given below, define a variable \'greet\' 
+
+    display(Markdown("""Using the code template given below, define a variable \'greet\'
     and store the string \'Hello  World\' in it. Print the variable."""))
-    
+
     c = """%%L00Q1
 
 # define the variable
 
 
 #print the variable"""
-    
+
     create_new_cell(c)
 
 
@@ -123,30 +120,30 @@ print('Code1() imported')
 
 @register_cell_magic
 def L00Q2(line, cell):
-    
-    # correct answer 
+
+    # correct answer
     def correct():
         return (np.sin(np.linspace(-1, 1, 20)))**2
-    
+
     globals = dict()
     exec(cell, globals)
-    
+
     # Now we can check if something was done
     Y = globals.get('y', None)
     X = globals.get('x', None)
-    
+
     if X is None:
         print('Looks like you have changed the "x" variable. Use the original template variables.')
         return
-    
+
     if(len(X)!=20):
         print('Incorrect. Note that you need to have 20 equidistant points.')
         return
-    
+
     if Y is None:
         print('Looks like you have changed the "y" variable. Use the original template variables.')
         return
-        
+
     if within_array(Y, correct()):
         print('Correct')
     else:
@@ -159,24 +156,24 @@ def L00Q2(line, cell):
 
 
 def Code2():
-    
-    display(Markdown("""Using the code template given below, 
-    Write a program that calculates the value of $sin^2(x)$ for 20 equidistant points between x = -1 and x = 1. 
+
+    display(Markdown("""Using the code template given below,
+    Write a program that calculates the value of $sin^2(x)$ for 20 equidistant points between x = -1 and x = 1.
     Print the result. Note: Do not modify the template variables."""))
-    
+
     c = """%%L00Q2
-    
+
 # import the required packages
 
 # define the points
-x = 
+x =
 
 # calculate sin^2(x)
-y = 
+y =
 
 #print the variable y"""
 
-    
+
     create_new_cell(c)
 
 
@@ -201,30 +198,30 @@ print('Code2() imported')
 
 @register_cell_magic
 def L00Q3(line, cell):
-    
-    # correct answer 
+
+    # correct answer
     def correct():
-        
+
         x = np.linspace(-2, 2, 300)
         y = np.sin(x) * np.sin(x) - np.cos(x) * np.cos(x)
-        
+
         plt.plot(x, y, 'k-', label = 'Correct', alpha = 0.5)
         plt.legend()
         return
-    
+
     globals = dict()
     exec(strip_magic(line, cell), globals)
-    
+
     X = globals.get('x', None)
-    
+
     if X is None:
         print('Looks like you have changed the "x" variable. Use the original template variables.')
         return
-    
+
     if(len(X)!=300):
         print('Incorrect. Note that you need to have 300 equidistant points.')
         return
-    
+
     correct()
 
 
@@ -234,25 +231,25 @@ def L00Q3(line, cell):
 
 
 def Code3():
-    
-    display(Markdown("""Using the code template given below, 
+
+    display(Markdown("""Using the code template given below,
     Make a plot of $sin^2(x) - cos^2(x)$ for x going from -2 to 2,
     and having 300 points. Label the axes and the title."""))
-    
+
     c = """%%L00Q3
-    
+
 # import the required packages
 
 
 # define the points
-x = 
+x =
 
 # calculate sin^2(x) - cos^2(x)
-y = 
+y =
 
 #plot x vs y"""
 
-    
+
     create_new_cell(c)
 
 
@@ -266,4 +263,3 @@ y =
 
 
 print('Code3() imported')
-
