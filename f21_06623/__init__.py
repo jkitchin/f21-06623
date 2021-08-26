@@ -1,0 +1,1 @@
+from .MCQs import lecName
