@@ -12,7 +12,7 @@ setup(name='f21_06623',
       platforms=['linux'],
       packages=['f21_06623'],
       setup_requires=[],
-      data_files=['requirements.txt', 'LICENSE', 'f21_06623/InclassMCQs.xlsx'],
+      data_files=['requirements.txt', 'LICENSE', 'InclassMCQs.xlsx'],
       install_requires=[],
       long_description='''Just support functions for multiple choice questions.''')
 
