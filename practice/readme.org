@@ -57,5 +57,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 (org-publish "practice" t)
 
 (shell-command "git config advice.addIgnoredFile false")
-(shell-command "git add * & git commit -am \"published updates\" && git push")
+(shell-command "git add *")
+(shell-command "git commit -am \"published updates\"")
+(shell-command "git push")
 #+END_SRC

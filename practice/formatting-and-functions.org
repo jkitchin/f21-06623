@@ -46,7 +46,39 @@ f('Andy', 'Canada')
 
 * multiline formatting
 
-Write a multiline string with
+Write a multiline string that formats these three variables in an output that looks like
+
+#+BEGIN_VERBATIM
+a = 2
+b = 3
+c = 5
+
+in the formula 2 x^2 + 3 x + 5 = 0
+#+END_VERBATIM
+
+
+#+BEGIN_SRC jupyter-python
+a = 2
+b = 3
+c = 5
+
+### BEGIN SOLUTION
+print(f'''a = {a}
+b = {b}
+c = {c}
+
+in the formula {a} x^2 + {b} x + {c} = 0''')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: a = 2
+: b = 3
+: c = 5
+:
+: in the formula 2 x^2 + 3 x + 5 = 0
+
 
 
 * temporarily modify how an array is printed
