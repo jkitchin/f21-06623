@@ -48,13 +48,15 @@ f('Andy', 'Canada')
 
 Write a multiline string that formats these three variables in an output that looks like
 
-#+BEGIN_VERBATIM
+
+#+BEGIN_EXAMPLE
 a = 2
 b = 3
 c = 5
 
-in the formula 2 x^2 + 3 x + 5 = 0
-#+END_VERBATIM
+in the formula 2 x^2 + 3 x + 5 = 0=
+#+END_EXAMPLE
+
 
 
 #+BEGIN_SRC jupyter-python
