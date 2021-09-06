@@ -1,4 +1,5 @@
-#+title: Formatting strings and functions
+#+title: Practice with formatting strings and functions
+#+author: John Kitchin
 
 #+ipynb-newcell
 
@@ -19,3 +20,135 @@ print(f'The square root of 3 to 3 decimal places is {np.sqrt(3):1.3f}.')
 
 #+RESULTS:
 : The square root of 3 to 3 decimal places is 1.732.
+
+
+* formatting with two variables
+
+Write a function that takes two arguments, one for the name of a person, and one for the country they are from. Make the function return a formatted string that looks like:
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+def f(name, country):
+    return f'{name} is from the country of {country}.'
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+
+
+#+BEGIN_SRC jupyter-python
+f('Andy', 'Canada')
+#+END_SRC
+
+#+RESULTS:
+: Andy is from the country of Canada.
+
+
+* multiline formatting
+
+Write a multiline string with
+
+
+* temporarily modify how an array is printed
+
+Print the contents of the following array in a way to only temporarily changes the precision to 2 decimal places.
+
+#+BEGIN_SRC jupyter-python
+x = np.sqrt(np.linspace(0, 1, 4))
+x
+#+END_SRC
+
+#+RESULTS:
+: array([0.        , 0.57735027, 0.81649658, 1.        ])
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+with np.printoptions(precision=2):
+    print(x)
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+: [0.   0.58 0.82 1.  ]
+
+
+* Is it a leap year?
+
+This is a tricky problem, inspired by an answer in one of the participation assignments!
+
+At https://docs.microsoft.com/en-us/office/troubleshoot/excel/determine-a-leap-year an algorithm for calculating whether a year is a leap year is given as:
+
+1. If the year is evenly divisible by 4, go to step 2. Otherwise, go to step 5.
+2. If the year is evenly divisible by 100, go to step 3. Otherwise, go to step 4.
+3. If the year is evenly divisible by 400, go to step 4. Otherwise, go to step 5.
+4. The year is a leap year (it has 366 days).
+5. The year is not a leap year (it has 365 days).
+
+Implement a function that takes a year argument and returns True if it is a leap year and False if not. Test it on the years 1992, 2000, 1900 and 1994.
+
+There are many approaches to this. You only need to figure out one!
+
+#+BEGIN_SRC jupyter-python
+
+
+def leapyear_p (year):
+### BEGIN SOLUTION
+# This is a literal, but difficult to follow implementation because of the nesting and multiple returns
+    if (year % 4) == 0:
+        # step 1 is true
+        if (year % 100) == 0:
+            # step 2 is true
+            if (year % 400) == 0:
+                # step 3 is true
+                return True
+            #step 3 is not true
+            else:
+                return False
+        # step 2 is not true
+        else:
+            return True
+    # step 1 is not true
+    else:
+        return False
+### END SOLUTION
+
+leapyear_p(1992), leapyear_p(2000), leapyear_p(1900), leapyear_p(1994)
+#+END_SRC
+
+#+RESULTS:
+| True | True | False | False |
+
+
+#+BEGIN_SRC jupyter-python
+# This is a more concise, but requires thought to get to it.
+# - A year that is divisible by 400 is also divisible by 4 and 100, so it is a leap year.
+# - A year that is divisible by 4 and not divisible by 100 is also a leap year.
+
+def leapyear_p(year):
+### BEGIN SOLUTION
+    if (year % 400) == 0:
+        return True
+    elif ((year % 4) == 0) and ((year % 100) != 0):
+        return True
+    else:
+        return False
+### END SOLUTION
+leapyear_p(1992), leapyear_p(2000), leapyear_p(1900), leapyear_p(1994)
+#+END_SRC
+
+#+RESULTS:
+| True | True | False | False |
+
+This is the most concise, but hardest to read without experience
+
+#+BEGIN_SRC jupyter-python
+
+### BEGIN SOLUTION
+def leapyear_p (year):
+    return (year % 400) == 0 or ((year % 4) == 0 and (year % 100) != 0)
+### END SOLUTION
+leapyear_p(1992), leapyear_p(2000), leapyear_p(1900), leapyear_p(1994)
+#+END_SRC
+
+#+RESULTS:
+| True | True | False | False |
