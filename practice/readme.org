@@ -54,7 +54,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	("practice" :components ("orgfiles" "solutions"))))
 
 
-(org-publish "practice" t)
+(org-publish "practice")
 
 (shell-command "git config advice.addIgnoredFile false")
 (shell-command "git add *")
