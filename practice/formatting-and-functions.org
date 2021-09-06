@@ -1,0 +1,21 @@
+#+title: Formatting strings and functions
+
+#+ipynb-newcell
+
+* formatting a float
+
+Calculate the square root of three, and use that value to print a string that looks like:
+
+"The square root of 3 to 3 decimal places is 1.732."
+
+#+BEGIN_SRC jupyter-python
+
+### BEGIN SOLUTION
+import numpy as np
+
+print(f'The square root of 3 to 3 decimal places is {np.sqrt(3):1.3f}.')
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+: The square root of 3 to 3 decimal places is 1.732.
