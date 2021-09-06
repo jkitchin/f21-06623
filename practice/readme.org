@@ -1,0 +1,3 @@
+#+title: Practice problems
+
+This directory is designed to be "org-published". The idea is to have org files that setup practice problems with links to solutions.

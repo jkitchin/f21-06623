@@ -1,0 +1,4 @@
+#+title: f21-06623 Mathematical Modeling of Chemical Engineering Processes Python library
+
+
+This repo has the [[./f21_06623/]] python library in it and [[./practice]] pages.
