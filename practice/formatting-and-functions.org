@@ -73,12 +73,7 @@ in the formula {a} x^2 + {b} x + {c} = 0''')
 
 #+END_SRC
 
-#+RESULTS:
-: a = 2
-: b = 3
-: c = 5
-:
-: in the formula 2 x^2 + 3 x + 5 = 0
+
 
 
 

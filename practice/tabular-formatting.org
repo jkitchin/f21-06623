@@ -1,0 +1,101 @@
+* Tabular formatting
+
+We have talked about formatted strings, and for numbers the format string looks like:
+
+~w.df~ where ~w~ is the width, ~d~ is the number of decimals, and the ~f~ indicates a float.
+
+We have usually left out the ~w~, or just set it to 1, like in these examples:
+
+#+BEGIN_SRC jupyter-python
+import numpy as np
+
+print(f'pi is {np.pi:.2f} or {np.pi:1.2f}')
+#+END_SRC
+
+#+RESULTS:
+: pi is 3.14 or 3.14
+
+Here we consider how to use the ~w~ to make nicely formatted output that is somewhat tabular. Consider this loop that prints ~i, i**2~. The output leaves something to be desired as it is not well aligned in a column. It is preferable if the columns lined up better. That is one reason to use the ~w~ in the format.
+
+#+BEGIN_SRC jupyter-python
+for i in range(11):
+    print(i, i**2)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+0 0
+1 1
+2 4
+3 9
+4 16
+5 25
+6 36
+7 49
+8 64
+9 81
+10 100
+#+end_example
+
+We can use it to specify the width of the field the variable is expanded in. For the first column, we should make it at least 3 characters wide since the biggest number is 10 which takes two characters to print. For the second column, we should make it at least a width of 4. We have integers we are formatting here, so instead of ~f~ we use ~d~ to indicate it is an integer.
+
+#+BEGIN_SRC jupyter-python
+for i in range(11):
+    print(f'{i:3d}{i**2:4d}')
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  0   0
+  1   1
+  2   4
+  3   9
+  4  16
+  5  25
+  6  36
+  7  49
+  8  64
+  9  81
+ 10 100
+#+end_example
+
+If you prefer the numbers to be left justified, add ~<~ to the format string like this:
+
+#+BEGIN_SRC jupyter-python
+for i in range(11):
+    print(f'{i:<3d}{i**2:<4d}')
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+0  0
+1  1
+2  4
+3  9
+4  16
+5  25
+6  36
+7  49
+8  64
+9  81
+10 100
+#+end_example
+
+
+Now, your turn. Print a tabular representation of the sqrt of x for the numbers 1 to 5 with a precision of three decimal places.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+for i in range(6):
+    print(f'|{i:3d}|{np.sqrt(i):8.3f}|')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: |  0|   0.000|
+: |  1|   1.000|
+: |  2|   1.414|
+: |  3|   1.732|
+: |  4|   2.000|
+: |  5|   2.236|
