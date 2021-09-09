@@ -67,9 +67,10 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :makeindex t
 	 :auto-sitemap t
 	 :sitemap-format-entry (lambda (fname style project)
-				 (format "[[./%s][%s]]"
+				 (format "[[./%s][%s]] (%s)"
 					 (concat (file-name-sans-extension fname) ".ipynb")
-					 (concat (file-name-sans-extension fname) ".ipynb")))
+					 (concat (file-name-sans-extension fname) ".ipynb")
+					 (org-get-buffer-tags)))
          :publishing-function  ox-ipynb-publish-practice)
 
 	("solutions"
@@ -88,3 +89,6 @@ This directory is designed to be "org-published". The idea is to have org files 
 (shell-command "git commit -am \"published updates\"")
 (shell-command "git push")
 #+END_SRC
+#+filetags: readme
+
+(org-get-tags)
