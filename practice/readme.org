@@ -20,8 +20,10 @@ This directory is designed to be "org-published". The idea is to have org files 
 					  ,(file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb"))))
 			  (goto-char (point-max))
 
-			  (insert (format "\n\n* Solutions\n\n [[https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/practice/solutions/%s][Open in colab]]\n\n"
-					  ,(file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb")))))
+			  (unless (member filename '("readme.org", "sitemap.org"))
+			    (insert (format "\n\n* Solutions\n\n [[https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/practice/solutions/%s][Open in colab]]\n\n"
+					    ,(file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb"))))))
+
 			ox-ipynb-remove-hidden
 			ox-ipynb-remove-solution
 			ox-ipynb-remove-remove)))
@@ -48,25 +50,25 @@ This directory is designed to be "org-published". The idea is to have org files 
 
 
 (defun f21-06623-index ()
-  (let ((index-entries '()))
-  (cl-loop for org-file in (f-files "." (lambda (f) (f-ext? f "org"))) do
-	   (with-current-buffer (find-file-noselect org-file)
-	     (cl-loop for  entry in (org-collect-keywords '("INDEX")) do
-		      (push (cons (cadr entry) (concat (file-name-sans-extension (file-name-nondirectory org-file)) ".ipynb"))
-			    index-entries))))
-  ;; sorted and grouped
-  (cl-loop for group in
-	   (seq-group-by (lambda (x) (substring (car x) 0 1)) (sort index-entries (lambda (a b) (string< (car a) (car b)))))
-	   concat
-	   (format "** %s\n\n%s\n" (car group)
-		   (mapconcat (lambda (s) (format " [[%s][%s]]\n" (cdr s) (car s))) (cdr group) "\n")))))
+  (concat "* Index\n\n"
+	  (let ((index-entries '()))
+	    (cl-loop for org-file in (f-files "." (lambda (f) (f-ext? f "org"))) do
+		     (with-current-buffer (find-file-noselect org-file)
+		       (cl-loop for  entry in (org-collect-keywords '("INDEX")) do
+				(push (cons (cadr entry) (concat (file-name-sans-extension (file-name-nondirectory org-file)) ".ipynb"))
+				      index-entries))))
+	    ;; sorted and grouped
+	    (cl-loop for group in
+		     (seq-group-by (lambda (x) (substring (car x) 0 1)) (sort index-entries (lambda (a b) (string< (car a) (car b)))))
+		     concat
+		     (format "** %s\n\n%s\n" (car group)
+			     (mapconcat (lambda (s) (format " [[./%s][%s]]\n" (cdr s) (car s))) (cdr group) "\n"))))))
 
 (setq org-publish-project-alist
       '(("notebooks"
          :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
          :base-extension "org"
          :publishing-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/notebooks"
-	 :makeindex t
 	 :auto-sitemap t
 	 :sitemap-format-entry (lambda (fname style project)
 				 (format "[[./%s][%s]]%s"
