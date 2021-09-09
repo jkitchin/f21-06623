@@ -41,7 +41,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
 	(unless buf-open (kill-buffer buf))
 	;; Delete the version generated in the top directory, since we want them in the published notebooks or solutions
-	(delete-file ipynb)
+	(unless (member ipynb '("sitemap.ipynb" "theindex.ipynb"))
+	  (delete-file ipynb))
 	output))))
 
 
@@ -55,7 +56,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
 	(unless buf-open (kill-buffer buf))
 	;; Delete the version generated in the top directory, since we want them in the published notebooks or solutions
-	(delete-file ipynb)
+	(unless (member ipynb '("sitemap.ipynb" "theindex.ipynb"))
+	  (delete-file ipynb))
 	output))))
 
 
@@ -67,7 +69,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :makeindex t
 	 :auto-sitemap t
 	 :sitemap-format-entry (lambda (fname style project)
-				 (format "[[./%s][%s]]"
+				 (format "[[./notebooks/%s][%s]]"
 					 (concat (file-name-sans-extension fname) ".ipynb")
 					 (concat (file-name-sans-extension fname) ".ipynb")))
          :publishing-function  ox-ipynb-publish-practice)
@@ -76,8 +78,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
          :base-extension "org"
          :publishing-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/solutions"
-	 ;; Change this... to making the functions
-	 :publishing-function  ox-ipynb-publish-solution)
+	 ox-ipynb-publish-solution)
 
 	("practice" :components ("orgfiles" "solutions"))))
 

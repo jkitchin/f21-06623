@@ -1,8 +1,8 @@
 #+TITLE: Sitemap for project orgfiles
 
-- [[file:./theindex.ipynb][theindex.ipynb]]
-- [[file:./readme.ipynb][readme.ipynb]]
-- [[file:./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
-- [[file:./fun-with-functions.ipynb][fun-with-functions.ipynb]]
-- [[file:./integrals.ipynb][integrals.ipynb]]
-- [[file:./tabular-formatting.ipynb][tabular-formatting.ipynb]]
+- [[file:./notebooks/theindex.ipynb][theindex.ipynb]]
+- [[file:./notebooks/readme.ipynb][readme.ipynb]]
+- [[file:./notebooks/formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
+- [[file:./notebooks/fun-with-functions.ipynb][fun-with-functions.ipynb]]
+- [[file:./notebooks/integrals.ipynb][integrals.ipynb]]
+- [[file:./notebooks/tabular-formatting.ipynb][tabular-formatting.ipynb]]
