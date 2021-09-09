@@ -1,4 +1,4 @@
-#+TITLE:Sitemap for project notebooks
+#+TITLE: Sitemap for project notebooks
 
 - [[./theindex.ipynb][theindex.ipynb]]
 - [[./readme.ipynb][readme.ipynb]] (readme)
@@ -8,4 +8,48 @@
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 
 * Index
+
+** b
+
+ [[./fun-with-functions.ipynb][break]]
+
+** f
+
+ [[./formatting-and-functions.ipynb][format!array]]
+
+ [[./formatting-and-functions.ipynb][format!float]]
+
+ [[./formatting-and-functions.ipynb][format!multiline]]
+
+ [[./formatting-and-functions.ipynb][format!multiple variables]]
+
+ [[./tabular-formatting.ipynb][format!tabular]]
+
+ [[./formatting-and-functions.ipynb][function]]
+
+ [[./fun-with-functions.ipynb][function!optional argument]]
+
+** i
+
+ [[./integrals.ipynb][integration!Simpsons method]]
+
+ [[./integrals.ipynb][integration!quad]]
+
+ [[./integrals.ipynb][integration!trapz]]
+
+** l
+
+ [[./fun-with-functions.ipynb][loop]]
+
+** q
+
+ [[./fun-with-functions.ipynb][quadratic]]
+
+** s
+
+ [[./integrals.ipynb][solve_ivp]]
+
+ [[./integrals.ipynb][solve_ivp!event]]
+
+ [[./integrals.ipynb][solve_ivp!maximum]]
 

@@ -54,8 +54,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 	  (let ((index-entries '()))
 	    (cl-loop for org-file in (f-files "." (lambda (f) (f-ext? f "org"))) do
 		     (with-current-buffer (find-file-noselect org-file)
-		       (cl-loop for  entry in (org-collect-keywords '("INDEX")) do
-				(push (cons (cadr entry) (concat (file-name-sans-extension (file-name-nondirectory org-file)) ".ipynb"))
+		       (cl-loop for  entry in (cdr (org-collect-keywords '("INDEX"))) do
+				(push (cons entry (concat (file-name-sans-extension (file-name-nondirectory org-file)) ".ipynb"))
 				      index-entries))))
 	    ;; sorted and grouped
 	    (cl-loop for group in
