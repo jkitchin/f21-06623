@@ -78,7 +78,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
          :base-extension "org"
          :publishing-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/solutions"
-	 ox-ipynb-publish-solution)
+	 :publishing-function ox-ipynb-publish-solution)
 
 	("practice" :components ("orgfiles" "solutions"))))
 
