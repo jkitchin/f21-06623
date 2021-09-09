@@ -48,7 +48,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 (defun ox-ipynb-publish-solution (plist filename pub-dir)
   "Publish an org-file to a Jupyter notebook."
   (let ((buf-open (find-buffer-visiting filename))
-	(buf (find-file-noselect filename)))
+	(buf (find-file-noselect filename))
+	(ipynb (file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb"))))
     (with-current-buffer buf
       (let* ((output (ox-ipynb-export-to-ipynb-file)))
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
