@@ -14,6 +14,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 
 
 
+
 #+BEGIN_SRC emacs-lisp :results silent
 
 (defun ox-ipynb-publish-practice (plist filename pub-dir)
@@ -25,9 +26,12 @@ This directory is designed to be "org-published". The idea is to have org files 
       (let* ((ox-ipynb-preprocess-hook
 	      (append ox-ipynb-preprocess-hook
 		      `((lambda ()
+			  (goto-char (point-min))
+			  (insert (format "[[https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/notebooks/practice/%s][Open in colab]]\n\n"
+					  ,(file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb")))
 			  (goto-char (point-max))
 
-			  (insert (format "\n\n* Solutions\n\n [[https://github.com/jkitchin/f21-06623/blob/master/practice/%s][Click here for the solution]]"
+			  (insert (format "\n\n* Solutions\n\n [[https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/practice/solutions/%s][Open in colab]]\n\n"
 					  ,(file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb")))))
 			ox-ipynb-remove-hidden
 			ox-ipynb-remove-solution
@@ -68,7 +72,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	("practice" :components ("orgfiles" "solutions"))))
 
 
-(org-publish "practice" t)
+(org-publish "practice")
 
 (shell-command "git config advice.addIgnoredFile false")
 (shell-command "git add *")
