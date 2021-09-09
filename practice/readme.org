@@ -106,4 +106,5 @@ This directory is designed to be "org-published". The idea is to have org files 
 (shell-command "git add *")
 (shell-command "git commit -am \"published updates\"")
 (shell-command "git push")
+(message "done")
 #+END_SRC
