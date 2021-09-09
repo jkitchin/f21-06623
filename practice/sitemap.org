@@ -1,8 +1,20 @@
-#+TITLE: Sitemap for project notebooks
+#+TITLE:Sitemap for project notebooks
+- [[./theindex.ipynb][theindex.ipynb]]
+- [[./readme.ipynb][readme.ipynb]] (readme)
+- [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
+- [[./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
+- [[./fun-with-functions.ipynb][fun-with-functions.ipynb]]
+- [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 
-- [[file:./theindex.ipynb][theindex.ipynb]]
-- [[file:./readme.ipynb][readme.ipynb]] (readme)
-- [[file:./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
-- [[file:./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
-- [[file:./fun-with-functions.ipynb][fun-with-functions.ipynb]]
-- [[file:./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
+** f
+
+ [[./formatting-and-functions.ipynb][format!float]]
+
+ [[./tabular-formatting.ipynb][format!tabular]]
+
+ [[./fun-with-functions.ipynb][function!optional argument]]
+
+** i
+
+ [[./integrals.ipynb][integration!trapz]]
+

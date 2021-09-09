@@ -3,18 +3,6 @@
 This directory is designed to be "org-published". The idea is to have org files that setup practice problems with links to solutions.
 
 
-# https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb
-
-# https://github.com/jkitchin/f21-06623/blob/master/practice/formatting-and-functions.ipynb
-
-# <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory">
-
-
-# <span><a href="00-intro.html">A brief introduction</a> <a href="https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory"></a></span></li>
-
-
-
-
 #+BEGIN_SRC emacs-lisp :results silent
 
 (defun ox-ipynb-publish-practice (plist filename pub-dir)
@@ -59,6 +47,20 @@ This directory is designed to be "org-published". The idea is to have org files 
 	output))))
 
 
+(defun f21-06623-index ()
+  (let ((index-entries '()))
+  (cl-loop for org-file in (f-files "." (lambda (f) (f-ext? f "org"))) do
+	   (with-current-buffer (find-file-noselect org-file)
+	     (cl-loop for  entry in (org-collect-keywords '("INDEX")) do
+		      (push (cons (cadr entry) (concat (file-name-sans-extension (file-name-nondirectory org-file)) ".ipynb"))
+			    index-entries))))
+  ;; sorted and grouped
+  (cl-loop for group in
+	   (seq-group-by (lambda (x) (substring (car x) 0 1)) (sort index-entries (lambda (a b) (string< (car a) (car b)))))
+	   concat
+	   (format "** %s\n\n%s\n" (car group)
+		   (mapconcat (lambda (s) (format " [[%s][%s]]\n" (cdr s) (car s))) (cdr group) "\n")))))
+
 (setq org-publish-project-alist
       '(("notebooks"
          :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
@@ -67,12 +69,24 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :makeindex t
 	 :auto-sitemap t
 	 :sitemap-format-entry (lambda (fname style project)
-				 (format "[[./%s][%s]] (%s)"
+				 (format "[[./%s][%s]]%s"
 					 (concat (file-name-sans-extension fname) ".ipynb")
 					 (concat (file-name-sans-extension fname) ".ipynb")
 					 (with-current-buffer (find-file-noselect fname)
-					   (org-no-properties (mapconcat 'org-element-interpret-data (org-get-buffer-tags) ", ")))))
-         :publishing-function  ox-ipynb-publish-practice)
+					   (if (org-get-buffer-tags)
+					       (format " (%s)"
+						       (org-no-properties (mapconcat 'org-element-interpret-data (org-get-buffer-tags) ", ")))
+					     ""))))
+	 :sitemap-function (lambda (title files)
+			     (format "#+TITLE:%s
+%s
+
+%s"
+				     title
+				     (string-join (cl-loop for entry in (cdr files) collect (concat "- " (car entry))) "\n")
+				     (f21-06623-index)))
+
+	 :publishing-function  ox-ipynb-publish-practice)
 
 	("solutions"
 	 :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
