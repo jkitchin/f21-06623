@@ -20,9 +20,10 @@ This directory is designed to be "org-published". The idea is to have org files 
 (defun ox-ipynb-publish-practice (plist filename pub-dir)
   "Publish an org-file to a Jupyter notebook."
   (let ((buf-open (find-buffer-visiting filename))
-	(buf (find-file-noselect filename)))
-    (with-current-buffer buf
+	(buf (find-file-noselect filename))
+	(ipynb (file-name-nondirectory (concat (file-name-sans-extension filename) ".ipynb"))))
 
+    (with-current-buffer buf
       (let* ((ox-ipynb-preprocess-hook
 	      (append ox-ipynb-preprocess-hook
 		      `((lambda ()
@@ -39,6 +40,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 	     (output (ox-ipynb-export-to-ipynb-file)))
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
 	(unless buf-open (kill-buffer buf))
+	;; Delete the version generated in the top directory, since we want them in the published notebooks or solutions
+	(delete-file ipynb)
 	output))))
 
 
@@ -50,6 +53,8 @@ This directory is designed to be "org-published". The idea is to have org files 
       (let* ((output (ox-ipynb-export-to-ipynb-file)))
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
 	(unless buf-open (kill-buffer buf))
+	;; Delete the version generated in the top directory, since we want them in the published notebooks or solutions
+	(delete-file ipynb)
 	output))))
 
 
