@@ -23,7 +23,7 @@ print(f'The square root of 3 to 3 decimal places is {np.sqrt(3):1.3f}.')
 
 
 * formatting with two variables
-#+index: format:multiple variables
+#+index: format!multiple variables
 
 Write a function that takes two arguments, one for the name of a person, and one for the country they are from. Make the function return a formatted string that looks like:
 
@@ -46,7 +46,7 @@ f('Andy', 'Canada')
 
 
 * multiline formatting
-#+index: format:multiline
+#+index: format!multiline
 Write a single multiline string that formats these three variables in an output that looks like
 
 #+BEGIN_EXAMPLE

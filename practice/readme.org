@@ -95,7 +95,28 @@ This directory is designed to be "org-published". The idea is to have org files 
 	 :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
          :base-extension "org"
          :publishing-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/solutions"
-	 :publishing-function ox-ipynb-publish-solution)
+	 :publishing-function ox-ipynb-publish-solution
+	 :sitemap-format-entry (lambda (fname style project)
+				 (format "[[./%s][%s]]%s"
+					 (concat (file-name-sans-extension fname) ".ipynb")
+					 (concat (file-name-sans-extension fname) ".ipynb")
+					 (with-current-buffer (find-file-noselect fname)
+					   (if (org-get-buffer-tags)
+					       (format " (%s)"
+						       (org-no-properties (mapconcat 'org-element-interpret-data (org-get-buffer-tags) ", ")))
+					     ""))))
+	 :sitemap-function (lambda (title files)
+			     (format "#+TITLE:%s
+
+%s
+
+%s"
+				     title
+				     (string-join (cl-loop for entry in (cdr files) collect (concat "- " (car entry))) "\n")
+				     (f21-06623-index)))
+
+
+	 )
 
 	("practice" :components ("notebooks" "solutions"))))
 
