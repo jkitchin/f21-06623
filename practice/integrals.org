@@ -1,7 +1,7 @@
 #+filetags: integration
 
 * Integrals
-** Numeric integration
+** Numeric integration                                           :trapz:quad:
 #+index: integration!trapz
 #+index: integration!Simpsons method
 #+index: integration!quad
@@ -51,7 +51,7 @@ print(f'with quad the integral is {I}')
 #+RESULTS:
 : with quad the integral is 0.7071067811865474
 
-* First order differential equations
+* First order differential equations                              :solve_ivp:
 #+index: solve_ivp
 
 Integrate this ordinary differential equation (ode):
@@ -80,7 +80,7 @@ plt.ylabel('y');
 #+RESULTS:
 [[file:./.ob-jupyter/fffe2c30928e7e04b07f5122db0c581ec840ce6b.png]]
 
-* Solving an ODE for a specific y value
+* Solving an ODE for a specific y value                               :event:
 #+index: solve_ivp!event
 
 Given this ODE: $$\frac{dy}{dt} = y(t)$$ with an initial condition of y(0) = 1. Find the value of $x$ where $y = 3$.

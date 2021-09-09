@@ -70,7 +70,8 @@ This directory is designed to be "org-published". The idea is to have org files 
 				 (format "[[./%s][%s]] (%s)"
 					 (concat (file-name-sans-extension fname) ".ipynb")
 					 (concat (file-name-sans-extension fname) ".ipynb")
-					 (org-get-buffer-tags)))
+					 (with-current-buffer (find-file-noselect fname)
+					   (org-no-properties (mapconcat 'org-element-interpret-data (org-get-buffer-tags) ", ")))))
          :publishing-function  ox-ipynb-publish-practice)
 
 	("solutions"
@@ -89,6 +90,3 @@ This directory is designed to be "org-published". The idea is to have org files 
 (shell-command "git commit -am \"published updates\"")
 (shell-command "git push")
 #+END_SRC
-#+filetags: readme
-
-(org-get-tags)

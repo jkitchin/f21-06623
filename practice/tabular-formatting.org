@@ -1,3 +1,5 @@
+#+filetags: format tabular
+
 #+title: Tabular formatting
 
 * Tabular formatting
