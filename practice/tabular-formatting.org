@@ -1,7 +1,7 @@
 #+title: Tabular formatting
 
 * Tabular formatting
-#+index: format:tabular
+#+INDEX: format!tabular
 
 We have talked about formatted strings, and for numbers the format string looks like:
 
