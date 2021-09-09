@@ -1,8 +1,8 @@
 #+TITLE: Sitemap for project notebooks
 
-- [[file:./theindex.ipynb][theindex.ipynb]]
-- [[file:./readme.ipynb][readme.ipynb]]
-- [[file:./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
-- [[file:./tabular-formatting.ipynb][tabular-formatting.ipynb]]
-- [[file:./fun-with-functions.ipynb][fun-with-functions.ipynb]]
-- [[file:./integrals.ipynb][integrals.ipynb]]
+- [[file:./theindex.ipynb][theindex.ipynb]] (nil)
+- [[file:./readme.ipynb][readme.ipynb]] (nil)
+- [[file:./formatting-and-functions.ipynb][formatting-and-functions.ipynb]] (nil)
+- [[file:./tabular-formatting.ipynb][tabular-formatting.ipynb]] (nil)
+- [[file:./fun-with-functions.ipynb][fun-with-functions.ipynb]] (nil)
+- [[file:./integrals.ipynb][integrals.ipynb]] (nil)
