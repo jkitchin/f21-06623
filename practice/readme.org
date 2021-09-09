@@ -68,7 +68,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	("practice" :components ("orgfiles" "solutions"))))
 
 
-(org-publish "practice")
+(org-publish "practice" t)
 
 (shell-command "git config advice.addIgnoredFile false")
 (shell-command "git add *")
