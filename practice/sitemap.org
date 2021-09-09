@@ -1,5 +1,5 @@
 #+TITLE:Sitemap for project notebooks
-- [[./theindex.ipynb][theindex.ipynb]]
+
 - [[./readme.ipynb][readme.ipynb]] (readme)
 - [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
 - [[./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
