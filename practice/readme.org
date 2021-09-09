@@ -3,11 +3,16 @@
 This directory is designed to be "org-published". The idea is to have org files that setup practice problems with links to solutions.
 
 
-https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb
+# https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb
 
-https://github.com/jkitchin/f21-06623/blob/master/practice/formatting-and-functions.ipynb
+# https://github.com/jkitchin/f21-06623/blob/master/practice/formatting-and-functions.ipynb
 
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory">
+# <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory">
+
+
+# <span><a href="00-intro.html">A brief introduction</a> <a href="https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory"></a></span></li>
+
+
 
 #+BEGIN_SRC emacs-lisp :results silent
 
@@ -49,6 +54,8 @@ https://github.com/jkitchin/f21-06623/blob/master/practice/formatting-and-functi
          :base-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/"
          :base-extension "org"
          :publishing-directory "/Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/notebooks"
+	 :makeindex t
+	 :auto-sitemap t
          :publishing-function  ox-ipynb-publish-practice)
 
 	("solutions"

@@ -1,0 +1,8 @@
+#+TITLE: Sitemap for project orgfiles
+
+- [[file:theindex.org][Index]]
+- [[file:readme.org][Practice problems]]
+- [[file:formatting-and-functions.org][Practice with formatting strings and functions]]
+- [[file:fun-with-functions.org][fun-with-functions]]
+- [[file:integrals.org][integrals]]
+- [[file:tabular-formatting.org][tabular-formatting]]

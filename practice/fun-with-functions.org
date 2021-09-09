@@ -1,6 +1,7 @@
 * Fun with functions
 
 ** A function with an optional argument
+#+index: function!optional argument
 
 Write a function that computes the square root of a number, and that has an optional argument to print what is calculated. The examples below show what your function should do.
 
@@ -40,6 +41,8 @@ f(4, prn=True)
 :END:
 
 ** Use a function to break out of a deeply nested loop
+#+index: break
+#+index: loop
 
 Say we have two lists, and we want to find if the product of two elements is equal to a number, say 9. Here is some awkward code that does that. We have to use break to get out of the inner loop, and then when we break out of the inner loop, also break out of the outer loop.
 
@@ -90,6 +93,7 @@ f([4, 3, 2, 1],   [1, 2, 3, 4])
 
 
 ** A quadratic equation solver
+#+index: quadratic
 
 A quadratic equation: $a x^2 + b x + c = 0$ has solutions of $x = \frac{-b \pm \sqrt{b^2 - 4 a c}{2a}$. Write a function that takes the three arguments (a, b, c) and that returns the two roots of the solution. It is possible for the roots to be complex if the radicand $b^2 - 4 a c$ is negative. Note that ~np.sqrt~ cannot handle negative numbers, so in this case you should compute the square root as x**0.5 to get solutions where the radicand is less than zero.
 

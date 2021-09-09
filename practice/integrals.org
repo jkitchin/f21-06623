@@ -2,6 +2,9 @@
 
 * Integrals
 ** Numeric integration
+#+index: integration!trapz
+#+index: integration!Simpsons method
+#+index: integration!quad
 
 Use the trapezoid method, Simpson's methods and ~quad~ from Python libraries to compute the integral of $y(x) = \cos (x)$ from $x=0..\pi/4$. For the trapezoid and Simpson's method use an array with 50 points in it.
 
@@ -49,6 +52,7 @@ print(f'with quad the integral is {I}')
 : with quad the integral is 0.7071067811865474
 
 * First order differential equations
+#+index: solve_ivp
 
 Integrate this ordinary differential equation (ode):
 
@@ -77,6 +81,7 @@ plt.ylabel('y');
 [[file:./.ob-jupyter/fffe2c30928e7e04b07f5122db0c581ec840ce6b.png]]
 
 * Solving an ODE for a specific y value
+#+index: solve_ivp!event
 
 Given this ODE: $$\frac{dy}{dt} = y(t)$$ with an initial condition of y(0) = 1. Find the value of $x$ where $y = 3$.
 
@@ -136,6 +141,7 @@ print(f'y=3 at x={sol.t_events[0][0]}.')
 : y=3 at x=1.098589989072491.
 
 * Finding a maximum in the solution of an ODE
+#+index: solve_ivp!maximum
 
 Say we have $y'(x) = -2 (x - 1)$, with $y(0) = 0$. This has a simple solution, $y = -(x - 1)^2 + 1$, which is a parabola with a maximum at x=1. In this problem you will use ~solve_ivp~ to find that maximum.
 

@@ -4,7 +4,7 @@
 #+ipynb-newcell
 
 * formatting a float
-
+#+index: format!float
 Calculate the square root of three, and use that value to print a string that looks like:
 
 "The square root of 3 to 3 decimal places is 1.732."
@@ -23,6 +23,7 @@ print(f'The square root of 3 to 3 decimal places is {np.sqrt(3):1.3f}.')
 
 
 * formatting with two variables
+#+index: format:multiple variables
 
 Write a function that takes two arguments, one for the name of a person, and one for the country they are from. Make the function return a formatted string that looks like:
 
@@ -45,7 +46,7 @@ f('Andy', 'Canada')
 
 
 * multiline formatting
-
+#+index: format:multiline
 Write a single multiline string that formats these three variables in an output that looks like
 
 #+BEGIN_EXAMPLE
@@ -78,6 +79,7 @@ in the formula {a} x^2 + {b} x + {c} = 0''')
 
 
 * temporarily modify how an array is printed
+#+index: format!array
 
 Print the contents of the following array in a way to only temporarily changes the precision to 2 decimal places.
 
@@ -101,6 +103,7 @@ with np.printoptions(precision=2):
 
 
 * Is it a leap year?
+#+index: function
 
 This is a tricky problem, inspired by an answer in one of the participation assignments!
 
