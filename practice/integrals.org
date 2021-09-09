@@ -1,0 +1,197 @@
+#+filetags: integration
+
+* Integrals
+** Numeric integration
+
+Use the trapezoid method, Simpson's methods and ~quad~ from Python libraries to compute the integral of $y(x) = \cos (x)$ from $x=0..\pi/4$. For the trapezoid and Simpson's method use an array with 50 points in it.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+import numpy as np
+
+# with trapz we need to sample the function to get two arrays, one for x and one for y(x)
+x = np.linspace(0, np.pi / 4)
+y = np.cos(x)
+
+print(f'with trapz the integral is {np.trapz(y, x)}.')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: with trapz the integral is 0.7070916423249564.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+from scipy.integrate import simps, quad
+
+# with simps we also use two arrays, one for x and one for y(x)
+print(f'with simps the integral is {simps(y, x)}.')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: with simps the integral is 0.7071064875720345.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+def f(x):
+    return np.cos(x)
+
+I, _ = quad(f, 0, np.pi / 4)
+print(f'with quad the integral is {I}')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: with quad the integral is 0.7071067811865474
+
+* First order differential equations
+
+Integrate this ordinary differential equation (ode):
+
+$$\frac{dy}{dt} = y(t)$$
+
+over the time span of 0 to 2. The initial condition is y(0) = 1. Plot the solution.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+from scipy.integrate import solve_ivp
+
+def yp(x, y):
+    return y
+
+sol = solve_ivp(yp, (0, 2), np.array([1]), t_eval=np.linspace(0, 2))
+
+import matplotlib.pyplot as plt
+plt.plot(sol.t, sol.y[0])
+plt.xlabel('x')
+plt.ylabel('y');
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/fffe2c30928e7e04b07f5122db0c581ec840ce6b.png]]
+
+* Solving an ODE for a specific y value
+
+Given this ODE: $$\frac{dy}{dt} = y(t)$$ with an initial condition of y(0) = 1. Find the value of $x$ where $y = 3$.
+
+Note, in this case we know the solution is $y = e^x$, and we can analytically solve for x as $x = ln(3)$
+
+#+BEGIN_SRC jupyter-python
+import numpy as np
+np.log(3)
+#+END_SRC
+
+#+RESULTS:
+: 1.0986122886681098
+
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+from scipy.integrate import solve_ivp
+
+def yp(x, y):
+    return y
+
+def event(x, y):
+    return y - 3
+
+event.terminal = True
+
+sol = solve_ivp(yp, (0, 2), np.array([1]), events=[event])
+
+sol
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  message: 'A termination event occurred.'
+     nfev: 20
+     njev: 0
+      nlu: 0
+      sol: None
+   status: 1
+  success: True
+        t: array([0.        , 0.10001999, 1.06609106, 1.09858999])
+ t_events: [array([1.09858999])]
+        y: array([[1.        , 1.10519301, 2.9040598 , 3.        ]])
+ y_events: [array([[3.]])]
+#+end_example
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+print(f'y=3 at x={sol.t_events[0][0]}.')
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: y=3 at x=1.098589989072491.
+
+* Finding a maximum in the solution of an ODE
+
+Say we have $y'(x) = -2 (x - 1)$, with $y(0) = 0$. This has a simple solution, $y = -(x - 1)^2 + 1$, which is a parabola with a maximum at x=1. In this problem you will use ~solve_ivp~ to find that maximum.
+
+The maximum is defined by $y' = 0$ and as you approach that event, the event function will be positive as it approaches the event and negative after the event.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+from scipy.integrate import solve_ivp
+
+def ode(x, y):
+    return -2 * (x - 1)
+
+def event(x, y):
+    return ode(x, y) # this is the derivative y'
+
+event.terminal = True
+event.direction = -1 # the event is negative after the event, i.e. the derivative is negative
+
+sol = solve_ivp(ode, (0, 2), [0], events=event, t_eval=np.linspace(0, 2))
+sol
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  message: 'A termination event occurred.'
+     nfev: 32
+     njev: 0
+      nlu: 0
+      sol: None
+   status: 1
+  success: True
+        t: array([0.        , 0.04081633, 0.08163265, 0.12244898, 0.16326531,
+       0.20408163, 0.24489796, 0.28571429, 0.32653061, 0.36734694,
+       0.40816327, 0.44897959, 0.48979592, 0.53061224, 0.57142857,
+       0.6122449 , 0.65306122, 0.69387755, 0.73469388, 0.7755102 ,
+       0.81632653, 0.85714286, 0.89795918, 0.93877551, 0.97959184])
+ t_events: [array([1.])]
+        y: array([[0.        , 0.07996668, 0.15660142, 0.22990421, 0.29987505,
+        0.36651395, 0.42982091, 0.48979592, 0.54643898, 0.5997501 ,
+        0.64972928, 0.69637651, 0.7396918 , 0.77967514, 0.81632653,
+        0.84964598, 0.87963349, 0.90628905, 0.92961266, 0.94960433,
+        0.96626406, 0.97959184, 0.98958767, 0.99625156, 0.99958351]])
+ y_events: [array([[1.]])]
+#+end_example
+
+
+#+BEGIN_SRC jupyter-python
+import matplotlib.pyplot as plt
+plt.plot(sol.t, sol.y[0])
+plt.plot(sol.t_events[0], sol.y_events[0], 'ro')
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+| <matplotlib.lines.Line2D | at | 0x7ff020380910> |
+[[file:./.ob-jupyter/ed9ddf56bb473ea002dfd896d7900d247a723db7.png]]
+:END:

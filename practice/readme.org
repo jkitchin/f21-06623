@@ -3,6 +3,12 @@
 This directory is designed to be "org-published". The idea is to have org files that setup practice problems with links to solutions.
 
 
+https://colab.research.google.com/github/jkitchin/f19-06623/blob/master/docs/notebooks/00-intro.ipynb
+
+https://github.com/jkitchin/f21-06623/blob/master/practice/formatting-and-functions.ipynb
+
+<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory">
+
 #+BEGIN_SRC emacs-lisp :results silent
 
 (defun ox-ipynb-publish-practice (plist filename pub-dir)
@@ -25,6 +31,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 	(org-publish-attachment plist (expand-file-name output) pub-dir)
 	(unless buf-open (kill-buffer buf))
 	output))))
+
 
 (defun ox-ipynb-publish-solution (plist filename pub-dir)
   "Publish an org-file to a Jupyter notebook."
