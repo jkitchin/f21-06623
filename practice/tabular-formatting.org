@@ -1,7 +1,6 @@
+#+title: Tabular formatting
 
-<span><a href="00-intro.html">A brief introduction</a> <a href="https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/practice/{{{input-file}}}" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory"></a></span></li>
-
-
+<a href="https://colab.research.google.com/github/jkitchin/f21-06623/blob/master/practice/ /Volumes/GoogleDrive/My Drive/classes/f21-06623/f21-06623/f21-06623/practice/formatting-and-functions.ipynb" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open in Colab" title="Open and Execute in Google Colaboratory"></a></span>
 
 * Tabular formatting
 #+index: format:tabular
