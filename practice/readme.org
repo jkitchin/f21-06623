@@ -81,6 +81,7 @@ This directory is designed to be "org-published". The idea is to have org files 
 					     ""))))
 	 :sitemap-function (lambda (title files)
 			     (format "#+TITLE:%s
+
 %s
 
 %s"
