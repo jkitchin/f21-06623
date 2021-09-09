@@ -6,6 +6,8 @@
 - [[./fun-with-functions.ipynb][fun-with-functions.ipynb]]
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 
+* Index
+
 ** f
 
  [[./formatting-and-functions.ipynb][format!float]]
