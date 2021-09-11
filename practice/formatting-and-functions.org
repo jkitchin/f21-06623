@@ -1,3 +1,5 @@
+#+filetags: format function
+
 #+title: Practice with formatting strings and functions
 #+author: John Kitchin
 

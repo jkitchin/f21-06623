@@ -2,9 +2,8 @@
 
 - [[./theindex.ipynb][theindex.ipynb]]
 - [[./readme.ipynb][readme.ipynb]]
-- [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
+- [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]] (format, function)
 - [[./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
-- [[./equal-areas.ipynb][equal-areas.ipynb]]
 - [[./fun-with-functions.ipynb][fun-with-functions.ipynb]] (function, arguments, loop)
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 - [[./loop-vs-trapz.ipynb][loop-vs-trapz.ipynb]] (loop, timeit)
