@@ -4,7 +4,6 @@
 The [[https://sutherland.che.utah.edu/wiki/index.php/Numerical_Integration#Example_2][flow rate]] in a river on each day is tabulated below.
 
 
-
 | Day | Flowrate (CFS) |
 |-----+----------------|
 |   1 |          10000 |
