@@ -1,0 +1,102 @@
+* Looping vs trapz performance                                  :loop:timeit:
+/Adapted from an example by Yuri Sanspeur./
+Sometimes we are interested in differences in performance. One way to measure performance is how long does it take to run a function.
+
+#+BEGIN_SRC jupyter-python
+import numpy as np
+#+END_SRC
+
+You can get timing information with the ~%%timeit~ cell magic, and here we get an average time to run this cell 1000 times.
+
+#+BEGIN_SRC jupyter-python
+%%timeit -n 1000
+
+x = np.linspace(0, 1)
+x.sum()
+#+END_SRC
+
+#+RESULTS:
+: 28.9 µs ± 285 ns per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+Use this to test the performance of using a loop to calculate the area under the function $y=x^2$ from $x=1$ to $x=4$ using the trapezoid method. Use a 1000 samples in your calculations.
+
+First, show that you get the same result with a loop and with ~np.trapz~.
+
+#+BEGIN_SRC jupyter-python
+
+### BEGIN SOLUTION
+xs = np.linspace(1, 4, 100)
+ys = xs ** 2
+
+sum_ = 0 # initialize sum of trapezoids
+
+for i in range(1, len(xs)): # iterate over all the trapezoids
+    sum_ += (xs[i] - xs[i-1]) * (ys[i] + ys[i-1]) / 2
+
+print(f'(loop: {sum_}, trapz:  {np.trapz(ys, xs)}'))
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+:   File "<ipython-input-59-8f959ca46873>", line 10
+:     f'(loop: {sum_}, trapz:  {np.trapz(ys, xs)}')
+:                                                 ^
+: SyntaxError: unmatched ')'
+:END:
+
+
+Now, use the ~timeit~ cell magic on each method to see the timing for each one. Note, the cell magic must be the first line in the cell, and you should not print anything in this cell, or it will be printed 1000 times! Your times may be different than what is shown here. Finally, code in the ~timeit~ cell is run in a special local namespace, so none of the calculations or variables inside the cell are available outside of the cell.
+
+
+#+BEGIN_SRC jupyter-python
+%%timeit -n 1000
+# explicit loop
+### BEGIN SOLUTION
+sum_ = 0 # initialize sum of trapezoids
+
+for i in range(1, len(xs)): # iterate over all the trapezoids
+    sum_ += (xs[i] - xs[i-1]) * (ys[i] + ys[i-1]) / 2
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+: 105 µs ± 903 ns per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+
+
+#+BEGIN_SRC jupyter-python
+%%timeit -n 1000
+# Timing on trapz
+### BEGIN SOLUTION
+np.trapz(ys, xs)
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+: 11.8 µs ± 156 ns per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+You can see that using ~np.trapz~ is /much/ faster! That is because ~np.trapz~ is vectorized and does not rely on a loop (which is usually slow). Here is what the vectorized code looks like. You can see it is not that easy to understand!
+
+#+BEGIN_SRC jupyter-python
+0.5 * ((xs[1:] - xs[:-1]) * (ys[1:] + ys[:-1])).sum()
+#+END_SRC
+
+#+RESULTS:
+: 21.000459136822773
+
+This vectorized code is even faster than ~np.trapz~, which is doing some additional work in the defined library code.
+
+#+BEGIN_SRC jupyter-python
+%%timeit -n 1000
+0.5 * ((xs[1:] - xs[:-1]) * (ys[1:] + ys[:-1])).sum()
+#+END_SRC
+
+#+RESULTS:
+: 4.72 µs ± 95.7 ns per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+Try different sized samples, e.g. from 50 to 5000 to see how different these algorithms are in performance.

@@ -1,3 +1,5 @@
+#+filetags: function arguments loop
+
 * Fun with functions
 
 ** A function with an optional argument
