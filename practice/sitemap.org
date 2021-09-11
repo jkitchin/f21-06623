@@ -4,9 +4,11 @@
 - [[./readme.ipynb][readme.ipynb]]
 - [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]]
 - [[./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
+- [[./equal-areas.ipynb][equal-areas.ipynb]]
 - [[./fun-with-functions.ipynb][fun-with-functions.ipynb]] (function, arguments, loop)
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 - [[./loop-vs-trapz.ipynb][loop-vs-trapz.ipynb]] (loop, timeit)
+- [[./river-flow.ipynb][river-flow.ipynb]] (trapz)
 
 * Index
 
@@ -53,4 +55,12 @@
  [[./integrals.ipynb][solve_ivp!event]]
 
  [[./integrals.ipynb][solve_ivp!maximum]]
+
+** t
+
+ [[./loop-vs-trapz.ipynb][timing]]
+
+ [[./river-flow.ipynb][trapz]]
+
+ [[./loop-vs-trapz.ipynb][trapz]]
 

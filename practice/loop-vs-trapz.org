@@ -1,4 +1,6 @@
 * Looping vs trapz performance                                  :loop:timeit:
+#+index: timing
+#+index: trapz
 /Adapted from an example by Yuri Sanspeur./
 Sometimes we are interested in differences in performance. One way to measure performance is how long does it take to run a function.
 
@@ -23,6 +25,7 @@ Use this to test the performance of using a loop to calculate the area under the
 First, show that you get the same result with a loop and with ~np.trapz~.
 
 #+BEGIN_SRC jupyter-python
+
 ### BEGIN SOLUTION
 xs = np.linspace(1, 4, 100)
 ys = xs ** 2
@@ -30,14 +33,14 @@ ys = xs ** 2
 sum_ = 0 # initialize sum of trapezoids
 
 for i in range(1, len(xs)): # iterate over all the trapezoids
-    sum_ += (xs[i] - xs[i-1]) * (ys[i] + ys[i-1]) / 2
+    sum_ += (xs[i] - xs[i - 1]) * (ys[i] + ys[i - 1]) / 2
 
-sum_, np.trapz(ys, xs)
+print(f'loop: {sum_}, trapz:  {np.trapz(ys, xs)}')
 ### END SOLUTION
 #+END_SRC
 
 #+RESULTS:
-| 21.00045913682277 | 21.000459136822773 |
+: loop: 21.00045913682277, trapz:  21.000459136822773
 
 
 Now, use the ~timeit~ cell magic on each method to see the timing for each one. Note, the cell magic must be the first line in the cell, and you should not print anything in this cell, or it will be printed 1000 times! Your times may be different than what is shown here. Finally, code in the ~timeit~ cell is run in a special local namespace, so none of the calculations or variables inside the cell are available outside of the cell.

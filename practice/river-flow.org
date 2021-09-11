@@ -1,0 +1,23 @@
+* Calculate the amount of water flowing over a time period            :trapz:
+#+index: trapz
+
+The [[https://sutherland.che.utah.edu/wiki/index.php/Numerical_Integration#Example_2][flow rate]] in a river on each day is tabulated below.
+
+| Day            |     1 |     2 |     3 |     4 |     5 |
+| Flowrate (CFS) | 10000 | 12000 | 15000 | 13500 | 14400 |
+
+Calculate the total amount of water that flowed through the river over the 5 days.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+import numpy as np
+
+d = np.array([1, 2, 3, 4, 5]) * 25 * 60 * 60 # seconds
+f = np.array([10000, 12000, 15000, 13500, 14400])
+
+print(f'{np.trapz(f, d):1.2e} ft^3 of water flowed through the river over this time period.')
+### END SOLUTION
+#+END_SRC
+
+#+RESULTS:
+: 4.74e+09 ft^3 of water flowed through the river over this time period.

@@ -4,7 +4,6 @@ This directory is designed to be "org-published". The idea is to have org files 
 
 
 #+BEGIN_SRC emacs-lisp :results silent
-
 (defun ox-ipynb-publish-practice (plist filename pub-dir)
   "Publish an org-file to a Jupyter notebook."
   (let ((buf-open (find-buffer-visiting filename))
