@@ -12,7 +12,7 @@ The [[https://sutherland.che.utah.edu/wiki/index.php/Numerical_Integration#Examp
 |   4 |          13500 |
 |   5 |          14400 |
 
-Calculate the total amount of water that flowed through the river over the 5 days.
+To calculate the total amount of water that flowed through the river over the 5 days you need to integrate the data above. Use ~np.trapz~ to do that.
 
 #+BEGIN_SRC jupyter-python
 ### BEGIN SOLUTION
