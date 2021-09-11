@@ -3,8 +3,15 @@
 
 The [[https://sutherland.che.utah.edu/wiki/index.php/Numerical_Integration#Example_2][flow rate]] in a river on each day is tabulated below.
 
-| Day            |     1 |     2 |     3 |     4 |     5 |
-| Flowrate (CFS) | 10000 | 12000 | 15000 | 13500 | 14400 |
+
+
+| Day | Flowrate (CFS) |
+|-----+----------------|
+|   1 |          10000 |
+|   2 |          12000 |
+|   3 |          15000 |
+|   4 |          13500 |
+|   5 |          14400 |
 
 Calculate the total amount of water that flowed through the river over the 5 days.
 
