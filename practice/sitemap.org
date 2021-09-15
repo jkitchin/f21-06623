@@ -4,10 +4,12 @@
 - [[./readme.ipynb][readme.ipynb]]
 - [[./formatting-and-functions.ipynb][formatting-and-functions.ipynb]] (format, function)
 - [[./tabular-formatting.ipynb][tabular-formatting.ipynb]] (format, tabular)
+- [[./equal-areas.ipynb][equal-areas.ipynb]]
 - [[./fun-with-functions.ipynb][fun-with-functions.ipynb]] (function, arguments, loop)
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 - [[./loop-vs-trapz.ipynb][loop-vs-trapz.ipynb]] (loop, timeit)
 - [[./river-flow.ipynb][river-flow.ipynb]] (trapz)
+- [[./solve-nonlinear-equations-with-solve-ivp.ipynb][solve-nonlinear-equations-with-solve-ivp.ipynb]]
 
 * Index
 
@@ -27,6 +29,8 @@
 
  [[./tabular-formatting.ipynb][format!tabular]]
 
+ [[./solve-nonlinear-equations-with-solve-ivp.ipynb][fsolve]]
+
  [[./formatting-and-functions.ipynb][function]]
 
  [[./fun-with-functions.ipynb][function!optional argument]]
@@ -43,11 +47,17 @@
 
  [[./fun-with-functions.ipynb][loop]]
 
+** n
+
+ [[./solve-nonlinear-equations-with-solve-ivp.ipynb][nonlinear algebra]]
+
 ** q
 
  [[./fun-with-functions.ipynb][quadratic]]
 
 ** s
+
+ [[./solve-nonlinear-equations-with-solve-ivp.ipynb][solve_ivp]]
 
  [[./integrals.ipynb][solve_ivp]]
 

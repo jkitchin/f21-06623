@@ -1,0 +1,113 @@
+#+filetags: solve_ivp fsolve nonlinear_algebra
+
+* Solving nonlinear algebraic equations with solve_ivp
+#+index: solve_ivp
+#+index: fsolve
+#+index: nonlinear algebra
+
+A common problem in reaction engineering is to find the equilibrium conversion, and this often leads to a nonlinear algebraic equation. For example, you might derive this equation:
+
+$1.44 = \frac{X_e^2}{(1 - X_e)^2}$
+
+where you have to solve for $X_e$. You can do this algebraically, and you arrive at:
+
+#+BEGIN_SRC jupyter-python
+import numpy as np
+
+np.sqrt(1.44) / (1 + np.sqrt(1.44))
+#+END_SRC
+
+#+RESULTS:
+: 0.5454545454545454
+
+It is pretty straight forward to use ~scipy.optimize.fsolve~ like this:
+
+#+BEGIN_SRC jupyter-python
+from scipy.optimize import fsolve
+
+def objective(x):
+    return 1.44 - x**2 / (1 - x)**2
+
+initial_guess = 0.2
+
+fsolve(objective, initial_guess)
+#+END_SRC
+
+#+RESULTS:
+: array([0.54545455])
+
+
+However, it is necessary to 1) know how to use fsolve, and 2) provide an initial guess for the solver.
+
+In this practice problem, we consider how to use ~solve_ivp~ to integrate our way to the solution. The idea is that you define the function (similar to using fsolve).
+
+$f(X_e) = 1.44 - \frac{X_e^2}{(1 - X_e)^2}$
+
+Next, derive an expression for $f'(X_e)$, and then use that in ~solve_ivp~ with an initial condition $f(X_e=0)=1.44$. Then define an event function for when $f(X_e) = 0$ that is terminal so the integration will stop at the $X_e$ that solves the equation.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+def ode(Xe, f):
+    return -(2 * Xe * (1 - Xe)**2 - (2 * (1 - Xe) * -1) * Xe**2) / (1 - Xe)**4
+
+def event(Xe, f):
+    return f[0]
+
+event.terminal = True
+
+f0 = np.array([1.44])
+
+from scipy.integrate import solve_ivp
+
+sol = solve_ivp(ode, t_span=(0, 1), y0=f0, events=event)
+sol
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  message: 'A termination event occurred.'
+     nfev: 50
+     njev: 0
+      nlu: 0
+      sol: None
+   status: 1
+  success: True
+        t: array([0.00000000e+00, 1.00000000e-04, 1.10000000e-03, 1.11000000e-02,
+       1.11100000e-01, 4.04360255e-01, 5.45812275e-01])
+ t_events: [array([0.54581227])]
+        y: array([[1.44000000e+00, 1.43999999e+00, 1.43999879e+00, 1.43987401e+00,
+        1.42437852e+00, 9.79091497e-01, 1.11022302e-15]])
+ y_events: [array([[1.11022302e-15]])]
+#+end_example
+
+
+You might notice the solution from solve_ivp is close, but not quite the same as the analytical or fsolve solution (solve_ivp says 0.5458... compared to 0.545454...). That is related to the default convergence criteria in finding the event. You can change this tolerance to get closer using the ~rtol~ argument to ~solve_ivp~.
+
+#+BEGIN_SRC jupyter-python
+sol = solve_ivp(ode, t_span=(0, 1), y0=f0, events=event, rtol=1e-9)
+sol
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+  message: 'A termination event occurred.'
+     nfev: 98
+     njev: 0
+      nlu: 0
+      sol: None
+   status: 1
+  success: True
+        t: array([0.00000000e+00, 1.00000000e-04, 1.10000000e-03, 1.11000000e-02,
+       1.11100000e-01, 2.27481133e-01, 3.23449675e-01, 4.03264521e-01,
+       4.70347282e-01, 5.27224947e-01, 5.45454291e-01])
+ t_events: [array([0.54545429])]
+        y: array([[1.44000000e+00, 1.43999999e+00, 1.43999879e+00, 1.43987401e+00,
+        1.42437852e+00, 1.35328935e+00, 1.21143321e+00, 9.83315535e-01,
+        6.51403559e-01, 1.96394156e-01, 5.55111512e-17]])
+ y_events: [array([[5.55111512e-17]])]
+#+end_example
+
+
+Should you use this approach? It depends. In terms of conservation of effort, these are all about the same. You either spend effort deriving an analytical solution, or setting up fsolve, or setting up solve_ivp. fsolve requires an initial guess, which can be tricky to figure out, and solve_ivp requires an initial condition which you have to figure out. It is nice to have different approaches to solving a problem though, since you can check the solutions against each other.
