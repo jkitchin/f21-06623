@@ -92,7 +92,7 @@ plt.ylim([-500, 500]);
 #+END_SRC
 
 #+RESULTS:
-[[file:./.ob-jupyter/98e334e4b24ef4712d1a984c64a95384d73efee3.png]]
+[[file:./.ob-jupyter/d1921ae3cdd39e14e08cdc87844e99bf3319abf6.png]]
 
 
 This shows you that the event is equal to 0 at three places, as it was before. The first place the event approaches zero from positive to negative around x = -6. The second time (near x = -2), the event is negative, approaches zero, and then is negative again. This event, although equal to 0 at x=-2, is not detectable, because it does not change sign. The third event at x=2, the event goes from negative to positive.
@@ -171,6 +171,8 @@ print(sol.t_events)
 :END:
 
 
-Take home lessions:
+Take home lessons:
 1. By leveraging mathematical insight and cleverness, we were able to construct an event function that allows us to select the smallest or largest root based on the curvature at those points.
 2. To get the middle point we have to use the original method, and not the modified event. In the modified event, there is no sign change at the zero, the event is negative before and after the event.
+
+Is this a general approach to use all the time? Probably not. It relies on specific properties we know about the solution in this case. Those properties would not generally be expected to work for other problems.
