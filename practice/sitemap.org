@@ -8,6 +8,7 @@
 - [[./fun-with-functions.ipynb][fun-with-functions.ipynb]] (function, arguments, loop)
 - [[./integrals.ipynb][integrals.ipynb]] (integration, event, solve_ivp, trapz, quad)
 - [[./loop-vs-trapz.ipynb][loop-vs-trapz.ipynb]] (loop, timeit)
+- [[./pathological-events.ipynb][pathological-events.ipynb]]
 - [[./river-flow.ipynb][river-flow.ipynb]] (trapz)
 - [[./selecting-roots-with-events.ipynb][selecting-roots-with-events.ipynb]]
 - [[./solve-nonlinear-equations-with-solve-ivp.ipynb][solve-nonlinear-equations-with-solve-ivp.ipynb]] (solve_ivp, fsolve, nonlinear_algebra)

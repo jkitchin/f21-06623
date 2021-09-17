@@ -1,0 +1,207 @@
+#+filetags: solve_ivp event fail
+
+* Pathological examples where solve_ivp and events appear to fail
+
+There are several ways that solving an ODE with `scipy.integrate.solve_ivp` can go wrong. Here we examine a few of them.
+
+** Missing events
+
+`solve_ivp` can miss events if the integration steps are too large. That happens because event detection requires a change in sign of the event function. Here we are counting the roots of a cubic polynomial. There should be three roots, but this code only finds one.
+
+#+BEGIN_SRC jupyter-python
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.integrate import solve_ivp
+
+def fprime(x, y):
+    return 3 * x**2 + 12 * x - 4
+
+def event(x, y):
+    return y
+
+xspan = (-8, 4)
+
+sol = solve_ivp(fprime, xspan, np.array([-120]), events=[event],
+                dense_output=True)
+
+xeval = np.linspace(*xspan, 100)
+
+plt.plot(sol.t, sol.y[0], 'b-.', label='Integrator Steps')
+plt.plot(sol.t_events[0], sol.y_events[0], 'bo', label='events found')
+plt.plot(xeval, sol.sol(xeval)[0], 'r-', label='Using Dense Output')
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y');
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/f261d148e8a1053b86a78d9e5a21f583dbda6ed3.png]]
+
+The ODE solution is not wrong; the final value is correct, the solution is sparse, and did not sample the intermediate regions, so no sign change was detected, and two events were missed.
+
+You can see the event does only change sign once, so only one event is detected.
+
+#+BEGIN_SRC jupyter-python
+event(sol.t, sol.y)
+#+END_SRC
+
+#+RESULTS:
+: array([[-120.        , -110.49687882,  -35.93785936,   94.46893375,
+:          120.        ]])
+
+Using t_eval /does not help/ because it does not change where the integrator takes steps.
+
+#+BEGIN_SRC jupyter-python
+sol = solve_ivp(fprime, xspan, np.array([-120]), events=[event],
+                t_eval=np.linspace(*xspan))
+
+plt.plot(sol.t, sol.y[0], 'b-.', label='t_eval')
+plt.plot(sol.t_events[0], sol.y_events[0], 'bo')
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y');
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: Text(0, 0.5, 'y')
+[[file:./.ob-jupyter/372829fc14b281997db6249db1182b73b50cee8e.png]]
+:END:
+
+
+Solve this problem by setting a max_step to avoid taking too large of a step.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+xeval, h = np.linspace(*xspan, 100, retstep=True)
+sol = solve_ivp(fprime, xspan, np.array([-120]), max_step=h, events=[event],
+                t_eval=xeval)
+plt.plot(sol.t, sol.y[0], 'b-.', label='x_eval')
+plt.plot(sol.t_events[0], sol.y_events[0], 'bo', label='events')
+plt.legend()
+plt.xlabel('x')
+plt.ylabel('y');
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/3177f52cb440aafdd4198bd8113f9a0d142dc3c1.png]]
+
+By ensuring you don't too large a step, you force the integrator not to miss the events.
+
+
+* Big steps missing part of the solution
+Adapted from https://github.com/scipy/scipy/issues/9228#issuecomment-687561371
+
+In this example, we have a discontinuous ODE where the derivative is zero up to t=2, then it is constant to t=7, and then it is zero again. The solution should be zero up to t=2, then a line to t=7, and then a constant again.
+
+This pathological example will fail with a method that tries several steps where the solution is constant, and then because the solution isn't changing, takes a large step past the region of change to the region where it is constant again.
+
+#+BEGIN_SRC jupyter-python
+import numpy as np
+from scipy.integrate import solve_ivp
+import matplotlib.pyplot as plt
+
+def dydt(t, y):
+  if t <= 2:
+    return 0
+  elif (t > 2) and (t < 7):
+    return 5.0
+  else:
+    return 0
+
+tspan = (0, 10)
+y0 = [0]
+
+sol = solve_ivp(dydt, tspan, y0, method='LSODA')
+
+plt.plot(sol.t, sol.y.T, 'r.-', linewidth=2, label='')
+plt.xlabel('Time')
+plt.ylabel('Tank height y(t)');
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/1fac691b2276ebaa0c5a956d174743fe52b28a61.png]]
+
+That doesn't make sense. We start at 0, and if t is less than 2, nothing happens, dy/dt is zero, but between t = 2 to 7, dy/dt is a constant, so the tank height should increase linearly, and after that remain constant. The problem here is the first few points don't change, so the integrator takes a large step past t=7, where it is constant again. Solve this by again specifying a max_step to avoid this.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+sol = solve_ivp(dydt, tspan, y0, method='LSODA', max_step=5)
+
+plt.plot(sol.t, sol.y.T, 'r.-', linewidth=2, label='')
+plt.xlabel('Time')
+plt.ylabel('Tank height y(t)');
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: Text(0, 0.5, 'Tank height y(t)')
+[[file:./.ob-jupyter/e4a1f38c6785527e344b1f6fce8279a77afee511.png]]
+:END:
+
+Note, this behavior is solver dependent, since the solver determines the step size. If you use the default solver, you do not see this behavior, although it does not capture the sharp corner at t=7, again because it took too large a step there.
+
+#+BEGIN_SRC jupyter-python
+sol = solve_ivp(dydt, tspan, y0)
+
+plt.plot(sol.t, sol.y.T, 'r.-', linewidth=2, label='')
+plt.xlabel('Time')
+plt.ylabel('Tank height y(t)');
+#+END_SRC
+
+#+RESULTS:
+[[file:./.ob-jupyter/9147486ea4815ce412829109f7e7442c1a43a8ae.png]]
+
+* Wiggles with t_eval
+
+~t_eval~ causes the solution to be interpolated from the known solution points. That can lead to wiggles in flat regions that are not real.
+
+
+#+BEGIN_SRC jupyter-python
+def dTdt(t, T):
+    return (30 - T) + 1
+
+T0 = np.array([30])
+tspan = np.array((0, 50))
+sol = solve_ivp(dTdt, tspan, T0, t_eval=np.linspace(*tspan))
+
+import matplotlib.pyplot as plt
+
+plt.plot(sol.t, sol.y.T,'o-')
+plt.xlabel('t')
+plt.ylabel('T')
+sol.message
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: The solver successfully reached the end of the integration interval.
+[[file:./.ob-jupyter/12d6924387227e83be584e4b240a2a6a5d2f3e36.png]]
+:END:
+
+
+:END:
+
+Those wiggles are not correct. One way to correct this again by ensuring that you don't allow the max_step to be too large.
+
+#+BEGIN_SRC jupyter-python
+### BEGIN SOLUTION
+teval, h = np.linspace(*tspan, 50, retstep=True)
+sol = solve_ivp(dTdt, tspan, T0, max_step=h, t_eval=teval)
+
+
+plt.plot(sol.t, sol.y.T, 'o')
+sol.message
+### END SOLUTION
+
+#+END_SRC
+
+#+RESULTS:
+:RESULTS:
+: The solver successfully reached the end of the integration interval.
+[[file:./.ob-jupyter/c391cf830966d919e072765a188b5271434946c4.png]]
+:END:
